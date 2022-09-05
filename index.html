@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/style.css"/>
+    <title>Weather App</title>
+</head>
+
+<body>
+    <header></header>
+
+    <div>
+        <h2>Search for a City</h2>
+        <form>
+            <input type="text" id="city-input" value="" name="city" placeholder="City">
+            <button id="search-button" name="search-city">Search</button>
+        </form>
+    </div>
+
+    <div id="past-city">
+        <h3>City History</h3>
+        <p id="past-city-p"></p>
+    </div>
+
+    <div id="current-city">
+        <p id="temp"></p>
+        <p id="wind"></p>
+        <p id="humidity"></p>
+        <p id="UV"></p>
+    </div>
+
+    <div id="5-day">
+        <p></p>
+    </div>
+
+    <script src="./assets/script.js"></script>
+</body>
+</html>
