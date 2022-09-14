@@ -51,3 +51,34 @@ function savePastCities(){
     return pastCityArr;
 };
 
+//Converts a user's city input into coordinates in order to run getCityWeather()
+function convertCityToCoordinates(city) {
+    let cityCoordinates = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=aaf9cc374cf52ab84d2a9ad1a36540fc`
+
+   fetch(cityCoordinates)
+    .then(function(response){
+        return response.json();
+    })
+    .then(function(data){
+        //accesses the latitude and longitude of a city to be used in getCityWeather()
+        latitude = data[0].lat;
+        longitude = data[0].lon;
+
+        getCityWeather(latitude, longitude);
+        getCityWeatherWeek(latitude,longitude);
+    });
+};
+
+//Calls the API for a city at a specfic latitude and longitude
+function getCityWeather(lat, lon){
+    let cityWeather = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=aaf9cc374cf52ab84d2a9ad1a36540fc`;
+    fetch(cityWeather)
+    .then(function(response){
+        return response.json();
+    })
+    .then(function(data){
+        currentWeatherObj = data;
+        displayCurrentWeather();
+    });
+};
+
