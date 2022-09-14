@@ -82,3 +82,63 @@ function getCityWeather(lat, lon){
     });
 };
 
+function displayCurrentWeather() {
+    let currentCityName = document.getElementById('city-name')
+    let currentCityTemp = document.getElementById('temp');
+    let currentCityWind = document.getElementById('wind');
+    let currentCityHumidity = document.getElementById('humidity');
+
+    currentCityName.innerHTML = currentWeatherObj.name;
+    currentCityTemp.innerHTML = `Current Temperature: ${currentWeatherObj.main.temp}°F`;
+    currentCityWind.innerHTML = `Wind: ${currentWeatherObj.wind.speed} MPH`;
+    currentCityHumidity.innerHTML = `Humidity: ${currentWeatherObj.main.humidity}%`;
+};
+
+function getCityWeatherWeek(lat, lon){
+    let cityWeatherWeek = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=aaf9cc374cf52ab84d2a9ad1a36540fc`;
+    fetch(cityWeatherWeek)
+    .then(function(response){
+        return response.json();
+    })
+    .then(function(data){
+        weeklyWeatherObj = data;
+        displayWeatherWeek();
+    });
+};
+
+function displayWeatherWeek() {
+    let parentDiv = document.getElementById('weekly-forecast');
+        parentDiv.innerHTML = null;
+
+    for (let i = 4; i < 44; i = i + 8) {
+        let div = document.createElement('div');
+        let dateP = document.createElement('p');
+        let tempP = document.createElement('p');
+        let windP = document.createElement('p');
+        let humidityP = document.createElement('p');
+        let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        let timeStamp = new Date(((new Date(0)).setUTCSeconds(weeklyWeatherObj.list[i].dt)));
+
+        dateP.innerHTML = '<b>' + timeStamp.toLocaleDateString("en-US", options) +'</b>';
+        tempP.innerHTML = `Temperature: ${weeklyWeatherObj.list[i].main.temp}°F`;
+        windP.innerHTML = ` Wind: ${weeklyWeatherObj.list[i].wind.speed} MPH`;
+        humidityP.innerHTML = `Humidity: ${weeklyWeatherObj.list[i].main.humidity}%`;
+
+        div.appendChild(dateP);
+        div.appendChild(tempP);
+        div.appendChild(windP);
+        div.appendChild(humidityP);
+
+        parentDiv.appendChild(div);
+    }
+};
+
+window.onload = () => {
+    let returnValue = '';
+
+    for (let i = 0; i < localStorage.length; i++) {
+        let key = `City${i}`;
+        returnValue += localStorage.getItem(key) + '\n';
+    }
+    savePastCities();
+};
