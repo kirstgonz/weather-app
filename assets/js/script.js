@@ -53,7 +53,7 @@ function savePastCities(){
 
 //Converts a user's city input into coordinates in order to run getCityWeather()
 function convertCityToCoordinates(city) {
-    let cityCoordinates = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=aaf9cc374cf52ab84d2a9ad1a36540fc`
+    let cityCoordinates = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=aaf9cc374cf52ab84d2a9ad1a36540fc`
 
    fetch(cityCoordinates)
     .then(function(response){
